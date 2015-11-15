@@ -1,10 +1,11 @@
 <resources>
     <string name="app_name">Login</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_logout">Logout</string>
     <string name="hint_password">Password</string>
     <string name="hint_username">User</string>
     <string name="remember_username">Remember user</string>
     <string name="insert_username">Insert username</string>
     <string name="insert_password">Insert password</string>
+    <string name="title_activity_login_with_shared_preferences">LoginWithSharedPreferences</string>
 
 </resources>
