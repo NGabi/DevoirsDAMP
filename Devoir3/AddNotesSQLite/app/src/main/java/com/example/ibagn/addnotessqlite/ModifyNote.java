@@ -8,14 +8,17 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
-public class ModifyMember extends Activity implements View.OnClickListener {
+public class ModifyNote extends Activity implements View.OnClickListener {
 
     EditText et;
     Button edit_bt, delete_bt;
 
-    long member_id;
-    String title, description, date;
+    long note_id;
+
 
     SQLController dbcon;
 
@@ -23,31 +26,49 @@ public class ModifyMember extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.modify_member);
+        setContentView(R.layout.modify_note);
 
         dbcon = new SQLController(this);
         try {
             dbcon.open();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        et = (EditText) findViewById(R.id.edit_mem_id);
+
+
+
+
+
+
+
+
         edit_bt = (Button) findViewById(R.id.update_bt_id);
         delete_bt = (Button) findViewById(R.id.delete_bt_id);
+        edit_bt.setOnClickListener(this);
+        delete_bt.setOnClickListener(this);
+        et = (EditText) findViewById(R.id.edit_mem_id);
+
 
         Intent i = getIntent();
-        String memberID = i.getStringExtra("memberID");
-        String title = i.getStringExtra("memberName");
-        String description = i.getStringExtra("memberName");
-        String date = i.getStringExtra("memberName");
+        String noteID = i.getStringExtra("ID");
+        note_id = Long.parseLong(noteID);
+        //String title = i.getStringExtra("title");
 
-        member_id = Long.parseLong(memberID);
 
-        et.setText(title);
+
+
+
+
+
+
+
+        et.setText( i.getStringExtra("description"));
 
         edit_bt.setOnClickListener(this);
         delete_bt.setOnClickListener(this);
+
 
     }
 
@@ -56,13 +77,22 @@ public class ModifyMember extends Activity implements View.OnClickListener {
 
         switch (v.getId()) {
             case R.id.update_bt_id:
-                String memName_upd = et.getText().toString();
-                dbcon.updateData(member_id, memName_upd,description,date);
+
+                DateFormat df = new SimpleDateFormat("d MMM yyyy, HH:mm");
+                String date = df.format(Calendar.getInstance().getTime());
+                String description = et.getText().toString();
+                String title="";
+                if( description.trim().length()!=0){
+
+                     title = description.split(" ")[0];
+                }
+
+                dbcon.updateData(note_id,title,description,date);
                 this.returnHome();
                 break;
 
             case R.id.delete_bt_id:
-                dbcon.deleteData(member_id);
+                dbcon.deleteData(note_id);
                 this.returnHome();
                 break;
         }

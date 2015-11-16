@@ -4,25 +4,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <TextView
-        android:id="@+id/member_id"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        />
 
     <TextView
         android:id="@+id/note_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/member_id"
+        android:layout_alignParentLeft="true"
+        android:textStyle="bold"
        />
     <TextView
         android:id="@+id/date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="12/11/1992"
         />
 
 
@@ -33,6 +27,6 @@
         android:layout_below="@+id/note_title"
         android:padding="15dp"
         android:textSize="17sp"
-        android:textStyle="bold"/>
+        />
 
 </RelativeLayout>

@@ -39,7 +39,7 @@ public class SQLController {
 
     //Getting Cursor to read data from table
     public Cursor readData() {
-        String[] allColumns = new String[] { DBhelper.MEMBER_ID,
+        String[] allColumns = new String[] { DBhelper.NOTE_ID,
                 DBhelper.NOTE_TITLE, DBhelper.NOTE_DESCRITION, DBhelper.NOTE_DATE};
         Cursor c = database.query(DBhelper.TABLE_NOTE, allColumns, null,
                 null, null, null, null);
@@ -54,13 +54,13 @@ public class SQLController {
         ContentValues cvUpdate = new ContentValues();
         cvUpdate.put(DBhelper.NOTE_TITLE, title);
         int i = database.update(DBhelper.TABLE_NOTE, cvUpdate,
-                DBhelper.MEMBER_ID + " = " + memberID, null);
+                DBhelper.NOTE_ID + " = " + memberID, null);
         return i;
     }
 
     // Deleting record data from table by id
     public void deleteData(long memberID) {
-        database.delete(DBhelper.TABLE_NOTE, DBhelper.MEMBER_ID + "="
+        database.delete(DBhelper.TABLE_NOTE, DBhelper.NOTE_ID + "="
                 + memberID, null);
     }
 

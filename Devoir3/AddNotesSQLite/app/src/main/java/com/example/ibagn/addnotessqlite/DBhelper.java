@@ -8,7 +8,7 @@ public class DBhelper extends SQLiteOpenHelper {
 
     // TABLE INFORMATTION
     public static final String TABLE_NOTE = "member";
-    public static final String MEMBER_ID = "_id";
+    public static final String NOTE_ID = "_id";
     public static final String NOTE_TITLE = "name";
     public static final String NOTE_DESCRITION = "description";
     public static final String NOTE_DATE = "date";
@@ -19,7 +19,7 @@ public class DBhelper extends SQLiteOpenHelper {
 
     // TABLE CREATION STATEMENT
     private static final String CREATE_TABLE = "create table "
-            + TABLE_NOTE + "(" + MEMBER_ID
+            + TABLE_NOTE + "(" + NOTE_ID
             + " INTEGER PRIMARY KEY AUTOINCREMENT, "
             + NOTE_TITLE + " TEXT NOT NULL,"+NOTE_DESCRITION+" TEXT NOT NULL,"+NOTE_DATE+");";
 

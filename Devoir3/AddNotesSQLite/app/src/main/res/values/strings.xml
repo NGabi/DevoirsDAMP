@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AddNotesSQLite</string>
+    <string name="title">Title</string>
+    <string name="description">Desciption</string>
 </resources>
