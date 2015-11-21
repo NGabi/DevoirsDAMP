@@ -14,7 +14,7 @@ import java.util.Calendar;
 
 public class ModifyNote extends Activity implements View.OnClickListener {
 
-    EditText et;
+    EditText et_title,et_desccription;
     Button edit_bt, delete_bt;
 
     long note_id;
@@ -48,7 +48,8 @@ public class ModifyNote extends Activity implements View.OnClickListener {
         delete_bt = (Button) findViewById(R.id.delete_bt_id);
         edit_bt.setOnClickListener(this);
         delete_bt.setOnClickListener(this);
-        et = (EditText) findViewById(R.id.edit_mem_id);
+        et_title = (EditText) findViewById(R.id.edit_title);
+        et_desccription = (EditText) findViewById(R.id.edit_description);
 
 
         Intent i = getIntent();
@@ -64,7 +65,9 @@ public class ModifyNote extends Activity implements View.OnClickListener {
 
 
 
-        et.setText( i.getStringExtra("description"));
+        et_desccription.setText( i.getStringExtra("description"));
+        et_title.setText( i.getStringExtra("title"));
+
 
         edit_bt.setOnClickListener(this);
         delete_bt.setOnClickListener(this);
@@ -80,9 +83,9 @@ public class ModifyNote extends Activity implements View.OnClickListener {
 
                 DateFormat df = new SimpleDateFormat("d MMM yyyy, HH:mm");
                 String date = df.format(Calendar.getInstance().getTime());
-                String description = et.getText().toString();
-                String title="";
-                if( description.trim().length()!=0){
+                String description =  et_desccription.getText().toString();
+                String title= et_title.getText().toString();;
+                if( title.trim().length()==0 & description.trim().length()!=0){
 
                      title = description.split(" ")[0];
                 }

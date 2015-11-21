@@ -53,6 +53,8 @@ public class SQLController {
     public int updateData(long memberID, String title,String description,String date) {
         ContentValues cvUpdate = new ContentValues();
         cvUpdate.put(DBhelper.NOTE_TITLE, title);
+        cvUpdate.put(DBhelper.NOTE_DESCRITION, description);
+        cvUpdate.put(DBhelper.NOTE_DATE, date);
         int i = database.update(DBhelper.TABLE_NOTE, cvUpdate,
                 DBhelper.NOTE_ID + " = " + memberID, null);
         return i;
