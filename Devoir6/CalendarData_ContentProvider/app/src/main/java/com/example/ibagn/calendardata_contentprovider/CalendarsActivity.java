@@ -26,7 +26,7 @@ public class CalendarsActivity extends AppCompatActivity {
 
 
     String MY_ACCOUNT_NAME = "anamaria@example.com";
-    String calendarID,calendarName="Medication Calendar";
+    String calendarID, calendarName = "Medication Calendar";
     boolean calendarExists = false;
     public static Uri CALENDAR_URI =
             Uri.parse("content://com.android.calendar/calendars");
@@ -42,7 +42,8 @@ public class CalendarsActivity extends AppCompatActivity {
         Button addEvent = (Button) findViewById(R.id.add);
         Button delete_btn = (Button) findViewById(R.id.delete);
         Button addCalendar = (Button) findViewById(R.id.addCalendar);
-        if(calendarExists == false){
+        Button deleteEvent = (Button) findViewById(R.id.rm_event);
+        if (calendarExists == false) {
             createCalendar();
             calendarExists = true;
         }
@@ -53,12 +54,10 @@ public class CalendarsActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
 
 
-                if(calendarExists == false){
+                if (calendarExists == false) {
                     createCalendar();
                     calendarExists = true;
                 }
-
-
 
 
             }
@@ -71,6 +70,17 @@ public class CalendarsActivity extends AppCompatActivity {
                 // TODO Auto-generated method stub
 
                 query();
+
+
+            }
+        });
+        deleteEvent.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+
+                removeEvent();
 
 
             }
@@ -94,6 +104,7 @@ public class CalendarsActivity extends AppCompatActivity {
             }
         });
     }
+
     public void createCalendar() {
         ContentValues values = new ContentValues();
         values.put(
@@ -141,7 +152,7 @@ public class CalendarsActivity extends AppCompatActivity {
         setId();
         calendarExists = true;
 
-        }
+    }
 
     public void deleteCalendar(String calendar_name) {
         Uri evuri = CalendarContract.Calendars.CONTENT_URI;
@@ -169,13 +180,7 @@ public class CalendarsActivity extends AppCompatActivity {
         // Get a Cursor over the Events Provider.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for Activity#requestPermissions for more details.
+
                 return;
             }
         }
@@ -250,6 +255,32 @@ public class CalendarsActivity extends AppCompatActivity {
         cursor.close();
     }
 
+    public void removeEvent() {
+        long calId = Integer.parseInt(calendarID);
+        if (calId == -1) {
+            // no calendar account; react meaningfully
+            return;
+        }
+        Uri evuri = CalendarContract.Events.CONTENT_URI;
+        Cursor result = getContentResolver().query(evuri, new String[]{ CalendarContract.Events._ID,  CalendarContract.Events.ACCOUNT_NAME, CalendarContract.Events.TITLE}, CalendarContract.Events.CALENDAR_ID + "= '" + calendarID + "'", null, null);
+
+        while (result.moveToNext()) {
+            if (result.getString(2).equals("Some title")) {
+                long calid = result.getLong(0);
+
+                Uri deleteUri = ContentUris.withAppendedId(evuri, calid);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (checkSelfPermission(Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+
+                        return;
+                    }
+                }
+                getContentResolver().delete(deleteUri, null, null);
+
+            }
+        }
+    }
+
     public void addEvent() {
         long calId = Integer.parseInt(calendarID);
         if (calId == -1) {
@@ -275,7 +306,7 @@ public class CalendarsActivity extends AppCompatActivity {
         values.put(CalendarContract.Events.DESCRIPTION,
                 "The agenda or some description of the event");
 // reasonable defaults exist:
-        values.put(CalendarContract.Events.ACCESS_LEVEL, CalendarContract.Events.ACCESS_PRIVATE);
+        values.put(CalendarContract.Events.ACCESS_LEVEL, CalendarContract.Events.ACCESS_PUBLIC);
         values.put(CalendarContract.Events.SELF_ATTENDEE_STATUS,
                 CalendarContract.Events.STATUS_CONFIRMED);
         values.put(CalendarContract.Events.ALL_DAY, 1);

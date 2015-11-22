@@ -40,4 +40,12 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:text="Create calendar" />
+    <Button
+        android:id="@+id/rm_event"
+        android:layout_below="@+id/addCalendar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:text="Delete event" />
 </RelativeLayout>
