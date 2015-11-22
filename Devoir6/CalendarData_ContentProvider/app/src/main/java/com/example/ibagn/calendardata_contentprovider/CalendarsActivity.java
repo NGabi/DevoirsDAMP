@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -27,7 +28,7 @@ public class CalendarsActivity extends AppCompatActivity {
 
     String MY_ACCOUNT_NAME = "anamaria@example.com";
     String calendarID, calendarName = "Medication Calendar";
-    boolean calendarExists = false;
+    public static boolean calendarExists = false;
     public static Uri CALENDAR_URI =
             Uri.parse("content://com.android.calendar/calendars");
 
@@ -69,7 +70,10 @@ public class CalendarsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
 
-                query();
+                 Intent list_events = new Intent(getApplicationContext(),
+                        EventsList.class);
+                list_events.putExtra("calendarID",calendarID);
+                startActivity(list_events);
 
 
             }
@@ -215,45 +219,7 @@ public class CalendarsActivity extends AppCompatActivity {
     }
 
 
-    public void query() {
-        String[] projection = {CalendarContract.Events._ID,
-                CalendarContract.Events.TITLE};
-        // Get a Cursor over the Events Provider.
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
-                // TODO: Consider calling
-                //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
-                // here to request the missing permissions, and then overriding
-                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                //                                          int[] grantResults)
-                // to handle the case where the user grants the permission. See the documentation
-                // for Activity#requestPermissions for more details.
-                return;
-            }
-        }
-        Cursor cursor = getContentResolver().query(
-                CONTENT_URI, projection, CalendarContract.Events.CALENDAR_ID + "= '" + calendarID + "'", null,
-                null);
 
-        // Get the index of the columns.
-        int nameIdx = cursor
-                .getColumnIndexOrThrow(CalendarContract.Events.TITLE);
-        int idIdx = cursor.getColumnIndexOrThrow(CalendarContract.Events._ID);
-        // Initialize the result set.
-        String[] result = new String[cursor.getCount()];
-        // Iterate over the result Cursor.
-        while (cursor.moveToNext()) {
-            // Extract the name.
-            String name = cursor.getString(nameIdx);
-            // Extract the unique ID.
-            String id = cursor.getString(idIdx);
-            result[cursor.getPosition()] = name + "(" + id + ")";
-            Toast.makeText(this, name + "(" + id + ")", Toast.LENGTH_SHORT)
-                    .show();
-        }
-        // Close the Cursor.
-        cursor.close();
-    }
 
     public void removeEvent() {
         long calId = Integer.parseInt(calendarID);
@@ -287,32 +253,35 @@ public class CalendarsActivity extends AppCompatActivity {
             // no calendar account; react meaningfully
             return;
         }
-        Calendar cal = new GregorianCalendar(2012, 11, 14);
+        Calendar cal = new GregorianCalendar(2015, 11, 22);
+
         cal.setTimeZone(TimeZone.getTimeZone("UTC"));
-        cal.set(Calendar.HOUR, 0);
-        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.HOUR, 15);
+        cal.set(Calendar.MINUTE, 56);
         cal.set(Calendar.SECOND, 0);
         cal.set(Calendar.MILLISECOND, 0);
         long start = cal.getTimeInMillis();
         ContentValues values = new ContentValues();
+        values.put(CalendarContract.Events.HAS_ALARM, true);
+
         values.put(CalendarContract.Events.DTSTART, start);
         values.put(CalendarContract.Events.DTEND, start);
         values.put(CalendarContract.Events.RRULE,
                 "FREQ=DAILY;COUNT=20;BYDAY=MO,TU,WE,TH,FR;WKST=MO");
-        values.put(CalendarContract.Events.TITLE, "Some title");
-        values.put(CalendarContract.Events.EVENT_LOCATION, "Münster");
+        values.put(CalendarContract.Events.TITLE, "Ibuprofen");
+
         values.put(CalendarContract.Events.CALENDAR_ID, calId);
-        values.put(CalendarContract.Events.EVENT_TIMEZONE, "Europe/Berlin");
+        values.put(CalendarContract.Events.EVENT_TIMEZONE, "Europe/Bucharest");
         values.put(CalendarContract.Events.DESCRIPTION,
                 "The agenda or some description of the event");
 // reasonable defaults exist:
         values.put(CalendarContract.Events.ACCESS_LEVEL, CalendarContract.Events.ACCESS_PUBLIC);
         values.put(CalendarContract.Events.SELF_ATTENDEE_STATUS,
                 CalendarContract.Events.STATUS_CONFIRMED);
-        values.put(CalendarContract.Events.ALL_DAY, 1);
+        //values.put(CalendarContract.Events., 1);
         values.put(CalendarContract.Events.ORGANIZER, "some.mail@some.address.com");
-        values.put(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, 1);
-        values.put(CalendarContract.Events.GUESTS_CAN_MODIFY, 1);
+        //values.put(CalendarContract.Events.GUESTS_CAN_INVITE_OTHERS, 1);
+        //values.put(CalendarContract.Events.GUESTS_CAN_MODIFY, 1);
         values.put(CalendarContract.Events.AVAILABILITY, CalendarContract.Events.AVAILABILITY_BUSY);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (checkSelfPermission(Manifest.permission.WRITE_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
@@ -326,12 +295,21 @@ public class CalendarsActivity extends AppCompatActivity {
                 return;
             }
         }
+
+
+
         Uri evuri = CalendarContract.Calendars.CONTENT_URI;
         Cursor result = getContentResolver().query(evuri, new String[]{CalendarContract.Calendars._ID, CalendarContract.Calendars.ACCOUNT_NAME, CalendarContract.Calendars.CALENDAR_DISPLAY_NAME}, null, null, null);
 
         while (result.moveToNext()) {
             if (result.getString(2).equals(calendarName)) {
                 long calid = result.getLong(0);
+                ContentValues reminders = new ContentValues();
+                reminders.put(CalendarContract.Reminders.EVENT_ID, calid);
+                reminders.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
+                reminders.put(CalendarContract.Reminders.MINUTES, 10);
+
+                Uri uri2 = getContentResolver().insert(CalendarContract.Reminders.CONTENT_URI, reminders);
                 Uri addUri = ContentUris.withAppendedId(evuri, calid);
                 getContentResolver().insert(CONTENT_URI, values);
                 long eventId = new Long(addUri.getLastPathSegment());
@@ -340,5 +318,40 @@ public class CalendarsActivity extends AppCompatActivity {
 
 
     }
+    public  void query() {
+        String[] projection = {CalendarContract.Events._ID,
+                CalendarContract.Events.TITLE};
+        // Get a Cursor over the Events Provider.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.READ_CALENDAR) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+
+                return;
+            }
+        }
+        Cursor cursor = getContentResolver().query(
+                CONTENT_URI, projection, CalendarContract.Events.CALENDAR_ID + "= '" + calendarID + "'", null,
+                null);
+
+        // Get the index of the columns.
+        int nameIdx = cursor
+                .getColumnIndexOrThrow(CalendarContract.Events.TITLE);
+        int idIdx = cursor.getColumnIndexOrThrow(CalendarContract.Events._ID);
+        // Initialize the result set.
+        String[] result = new String[cursor.getCount()];
+        // Iterate over the result Cursor.
+        while (cursor.moveToNext()) {
+            // Extract the name.
+            String name = cursor.getString(nameIdx);
+            // Extract the unique ID.
+            String id = cursor.getString(idIdx);
+            result[cursor.getPosition()] = name + "(" + id + ")";
+            Toast.makeText(this, name + "(" + id + ")", Toast.LENGTH_SHORT)
+                    .show();
+        }
+        // Close the Cursor.
+        cursor.close();
+    }
+
 
 }

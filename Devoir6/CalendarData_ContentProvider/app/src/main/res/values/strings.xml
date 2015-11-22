@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">CalendarData_ContentProvider</string>
+
+    <!--Medications names-->
+
+    <string name="augumentin">AUGUMENTIN</string>
+    <string name="aspirin">ASIRIN</string>
+    <string name="acyclovir">ACYCLOVIR</string>
+    <string name="avastin">AVASTIN</string>
+    <string name="betoptic">BETOTIC</string>
+    <string name="coldrex">COLDREX</string>
+    <string name="caduet">CADUET</string>
+    <string name="calcipotriene">CALCIOOTERINE</string>
+    <string name="doxycyline">DOXYCYCLINE</string>
+    <string name="ibuprofen">IBUROFEN</string>
+    <string name="penicillin">PENICILLIN</string>
+
+    <!--Events buttons-->
+    <string name="add_event">ADD</string>
+    <string name="delete_event">DELETE</string>
 </resources>
+
+
+
+
+
+
+
+
+

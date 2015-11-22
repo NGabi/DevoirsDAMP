@@ -1,0 +1,27 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".MainActivity">
+
+    <item
+        android:id="@+id/delete_event"
+        android:title="@string/delete_event">
+        <menu>
+            <item
+                android:id="@+id/nurofen"
+                android:title="@string/ibuprofen"/>
+            <item
+                android:id="@+id/aspirin"
+                android:title="@string/aspirin"/>
+            <item
+                android:id="@+id/coldrex"
+                android:title="@string/coldrex"/>
+            <item
+                android:id="@+id/augumentin"
+                android:title="@string/augumentin"/>
+        </menu>
+        </item>
+    <item
+        android:id="@+id/add_event"
+        android:title="@string/add_event"/>
+
+</menu>
