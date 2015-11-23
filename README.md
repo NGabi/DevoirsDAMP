@@ -19,6 +19,7 @@ oreder it by most contacted or last contacted int (	TIMES_CONTACTED 	,long 	LAST
 You can insert contacts by adding information in ContactsContract.RawContacts and ContactsContract.CommonDataKinds.
 You can delete a contact by selecting the RawContacts.CONTACT_ID from RawContacts.CONTENT_URI. .
 You can update contacts.
+You can send messages.
 </p>
 <p>
 3)UserDictionary:
@@ -27,6 +28,8 @@ You can create an app that manages userdictionar: adds,deletes, searches a word 
 <p>
 4)VoicemailContract:
 An app that can display all the voice mails in a list and play the. we can display information like Calls.NUMBER,Calls.DATE,Calls.DURATION and that can delete it.
+5) It can be created an appilication that displays the call history with details:name, phoe number, date,duration.
+It could also display a popup window when user receives a call.
 </p>
 
 
