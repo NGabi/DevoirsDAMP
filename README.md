@@ -5,17 +5,13 @@
 Explain a few applications idea that you can build based on that (readme.txt with this
 explanation or a word document)
 a)
-CalendarContract
+Calendar Provider
 You can built an aplication that can add events reminders.
 It can create a new calendar.
 It can add, query, update and delete events.
 It cand add reminders to the event.
-b)Audio.Playlist
-You can built an app that can query all the songs in a playlist.
-You could play or end a song from the song list displayed.
-c)Images.Media
-d)Video.Media
-e)Images.Thumbnails
+b)Contacts Provider
+
 
  
 3. Build one of those suggestions.
