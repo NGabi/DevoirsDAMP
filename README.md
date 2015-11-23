@@ -5,12 +5,15 @@
 Explain a few applications idea that you can build based on that (readme.txt with this
 explanation or a word document)
 a)
-Calendar Provider
+CalendarContract
 You can built an aplication that can add events reminders.
 It can create a new calendar.
 It can add, query, update and delete events.
 It cand add reminders to the event.
-b)Contacts Provider
+b)ContactsContract
+c)UserDictionary
+d)VoicemailContract
+e)Settings
 
 
  
