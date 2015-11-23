@@ -4,12 +4,14 @@
 2. Look through the android.provider package and choose 5 providers and explore their date.
 Explain a few applications idea that you can build based on that (readme.txt with this
 explanation or a word document)
+<p>
 1)
 CalendarContract
 You can built an aplication that can add events reminders.
 It can create a new calendar.
 It can add, query, update and delete events.
-It cand add reminders to the event.
+It cand add reminders to the event.</p>
+<p>
 2)ContactsContract
  You can create an application that will diplay all contcts in a listview retrived from ContactsContract.Contacts table.
  You can click on it and it will display contact details suc as : name(DISPLAY_NAME in ContactsContract.Data), phone number, email(by quering the cursor and dispalyng data found in column ContactsContract.CommonDataKinds.Phone and CommonDataKinds.Email.DATA) 
@@ -17,10 +19,15 @@ oreder it by most contacted or last contacted int (	TIMES_CONTACTED 	,long 	LAST
 You can insert contacts by adding information in ContactsContract.RawContacts and ContactsContract.CommonDataKinds.
 You can delete a contact by selecting the RawContacts.CONTACT_ID from RawContacts.CONTENT_URI. .
 You can update contacts.
+</p>
+<p>
 3)UserDictionary
 You can create an app that manages userdictionar: adds,deletes, searches a word or displays words.
-d)VoicemailContract
+</p>
+<p>
+4)VoicemailContract
 An app that can display all the voice mails in a list and play the. we can display information like Calls.NUMBER,Calls.DATE,Calls.DURATION and that can delete it.
+</p>
 
 
 
