@@ -150,6 +150,9 @@ public class LoginWithSharedPreferences extends AppCompatActivity implements Vie
                         logIntent.putExtra("username", usersData.get(i).name);
                         logIntent.putExtra("country", usersData.get(i).country);
                         logIntent.putExtra("usertype", usersData.get(i).usertype);
+                        Intent intent = new Intent(ctx, ProfileActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
 
                         return true;
                     }else {
@@ -182,6 +185,9 @@ public class LoginWithSharedPreferences extends AppCompatActivity implements Vie
                     pass = passwordEt.getText().toString();
                     checkSaveOption(usr, pass);
                     if(checkUserValability(usr,pass)){
+                        Intent inte =new Intent(getBaseContext(),LoginService.class);
+                        startService(inte);
+
                         startActivity(logIntent);
                         finish();
                     }

@@ -23,7 +23,7 @@ public class LoginService extends Service {
         i++;
         Toast.makeText(this, "Login for the " + i + "th time!", Toast.LENGTH_SHORT).show();
 
-        return START_STICKY;
+        return START_NOT_STICKY;
 
     }
 

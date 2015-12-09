@@ -1,37 +1,48 @@
 package com.example.ibagn.buildcoursecode;
 
-import android.content.CursorLoader;
-import android.database.Cursor;
+import android.content.Intent;
 import android.os.Bundle;
-import android.provider.CallLog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static final String TAG ="CallLog" ;
+    TextView input;
+    Button queryCalls;
+    Integer number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        String[] requestedColumns ={
-                CallLog.Calls._ID,
-                CallLog.Calls.NUMBER,
-                CallLog.Calls.DURATION
-        };
-        CursorLoader loader =
-                new CursorLoader(this,CallLog.Calls.CONTENT_URI,requestedColumns,null,null,null);
-        Cursor calls = loader.loadInBackground();
-        for(int i = 0;i<10;i++){
-            if(calls.moveToNext()==false)
-                break;
-            Log.d(TAG,"Logging the record:"+i);
-            Log.d(TAG,"Id:"+calls.getString(0));
-            Log.d(TAG,"Number:"+calls.getString(1));
-            Log.d(TAG,"Duration:"+calls.getString(2));
+       input = (TextView) findViewById(R.id.input);
 
-        }
-        calls.close();
+
+        queryCalls = (Button) findViewById(R.id.query_calls);
+        queryCalls.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Perform action on click
+
+                Intent intent = new Intent(MainActivity.this, CallsActivity.class);
+
+                if(input.getText().toString().trim().length()!=0){
+                    number=Integer.parseInt(input.getText().toString().trim());
+                    intent.putExtra("number",number);
+
+
+
+                    MainActivity.this.startActivity(intent);
+
+                }else{
+                    Toast.makeText(getBaseContext(),"Input number !",
+                            Toast.LENGTH_SHORT).show();
+                }
+
+
+            }
+        });
+
     }
 }

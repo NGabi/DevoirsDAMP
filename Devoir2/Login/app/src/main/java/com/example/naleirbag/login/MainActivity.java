@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
                             intent.putExtra("country", usersData.get(i).country);
                             intent.putExtra("usertype", usersData.get(i).usertype);
                             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                            Intent inte =new Intent(getBaseContext(),LoginService.class);
+                            startService(inte);
                             ctx.startActivity(intent);
                             break;
 

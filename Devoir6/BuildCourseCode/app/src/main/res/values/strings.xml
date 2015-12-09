@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">BuildCourseCode</string>
+    <string name="enter">Enter number</string>
 </resources>

@@ -87,7 +87,10 @@ public class ProfileActivity extends AppCompatActivity implements View.OnClickLi
             Toast.makeText(
                     this.getApplicationContext(), "Button logout",
                     Toast.LENGTH_LONG).show();
+            Intent inte =new Intent(getBaseContext(),LoginService.class);
+            stopService(inte);
             Intent logoutIntent = new Intent(ProfileActivity.this,LoginWithSharedPreferences.class);
+
             startActivity(logoutIntent);
             finish();
 

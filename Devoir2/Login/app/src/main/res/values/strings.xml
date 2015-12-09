@@ -5,7 +5,8 @@
     <string name="hint_username">User</string>
     <string name="remember_username">Remember user</string>
     <string name="insert_username">Insert username</string>
-    <string name="insert_password">Insert password</string>
+
     <string name="title_activity_login_with_shared_preferences">LoginWithSharedPreferences</string>
+    <string name="insert_password">Insert password</string>
 
 </resources>
