@@ -262,7 +262,7 @@ public class CalendarsActivity extends AppCompatActivity {
         cal.set(Calendar.MILLISECOND, 0);
         long start = cal.getTimeInMillis();
         ContentValues values = new ContentValues();
-        values.put(CalendarContract.Events.HAS_ALARM, true);
+        //values.put(CalendarContract.Events.HAS_ALARM, true);
 
         values.put(CalendarContract.Events.DTSTART, start);
         values.put(CalendarContract.Events.DTEND, start);
@@ -309,7 +309,7 @@ public class CalendarsActivity extends AppCompatActivity {
                 reminders.put(CalendarContract.Reminders.METHOD, CalendarContract.Reminders.METHOD_ALERT);
                 reminders.put(CalendarContract.Reminders.MINUTES, 10);
 
-                Uri uri2 = getContentResolver().insert(CalendarContract.Reminders.CONTENT_URI, reminders);
+//                Uri uri2 = getContentResolver().insert(CalendarContract.Reminders.CONTENT_URI, reminders);
                 Uri addUri = ContentUris.withAppendedId(evuri, calid);
                 getContentResolver().insert(CONTENT_URI, values);
                 long eventId = new Long(addUri.getLastPathSegment());
