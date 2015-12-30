@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Gmail</string>
+    <string name="title">Primary</string>
     <string name="action_settings">Settings</string>
 </resources>

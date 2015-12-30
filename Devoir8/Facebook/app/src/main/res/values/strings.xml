@@ -1,3 +1,20 @@
 <resources>
     <string name="app_name">Facebook</string>
+    <string name="usr_name">Gabriela Nitulescu</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="study">&#xf19d;Studied at</string>
+    <string name="school">Studied at Politehnica din București</string>
+    <string name="work">&#xf0b1;Intern at</string>
+    <string name="company">Company</string>
+    <string name="location">&#xf015;Lives in</string>
+    <string name="adress">Bucharest, Romania</string>
+    <string name="friends">&#xf00c;Friends</string>
+    <string name="following">&#xf00c;Following</string>
+    <string name="messages">Messages</string>
+    <string name="about">About</string>
+    <string name="photos">Photos</string>
+    <string name="friend">Friends</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="action_search">Search</string>
 </resources>
