@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/icon"
         android:paddingLeft="20dp"
+        android:paddingBottom="5dp"
         android:text="Google+"/>
     <TextView
         android:id="@+id/subtitle"

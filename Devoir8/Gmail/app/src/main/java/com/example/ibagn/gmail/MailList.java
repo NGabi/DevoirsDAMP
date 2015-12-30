@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -26,11 +27,16 @@ public class MailList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         setContentView(R.layout.activity_mails_list);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
         FloatingActionButton new_msg =(FloatingActionButton)findViewById(R.id.fab);
         new_msg.setBackgroundTintList(ColorStateList.valueOf(Color.RED));
-       // getSupportActionBar().setDisplayShowTitleEnabled(true);
-        //getSupportActionBar().setTitle("Primary");
+
+         getSupportActionBar().setTitle(" Primary");
+        getSupportActionBar().setLogo(R.drawable.ham_menu);
+
 
 
 
@@ -370,7 +376,7 @@ public class MailList extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            
+
             case R.id.action_search:
 
                 return true;

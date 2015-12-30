@@ -7,4 +7,5 @@
         app:showAsAction="always"
         android:icon="@mipmap/search"
         android:actionViewClass="android.widget.SearchView" />
+
 </menu>
